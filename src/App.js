@@ -1,67 +1,61 @@
 import React, {Component} from 'react'
 
-
 class App extends Component{
     constructor(props) {
         super(props);
-        this.state = {firstValue: '',
-                      secondValue: '',
-                      thridValue:'',
-                      fourthValue:'',
-                      fifthValue:'',
-                      sixthValue:'',
-                      seventhValue:'',
-                      eightValue:'',
-                      ninthValue:'',
-                      tenthValue:'',
+        this.state = {value1:'',
+                      value2:'',
+                      value3:'',
+                      value4:'',
+                      value5:'',
                       users: [],
-                      places:[]};
+                      travels:[],
+                      checkedHobbyItems: new Map(),
+                      checkedTravelItems: new Map(),
+                      checkedPriorityItems: new Map(),
+                      hobbys:[],
+                      prioritys:[],
+                      genders:[],
+                    };
+        this.checkedHobbyItems = React.createRef();
+        this.hobbys = React.createRef();
+        this.checkedTravelItems = React.createRef();
+        this.travels = React.createRef();
+        this.checkedPriorityItems = React.createRef();
+        this.prioritys = React.createRef();
+        this.genders = React.createRef();
+
+
         this.firstName = React.createRef();
         this.lastName = React.createRef();
-        this.gender = React.createRef();
         this.age = React.createRef();
         this.thingsYouLike = React.createRef();
         this.email = React.createRef();
-        this.login = React.createRef();
-        this.country = React.createRef();
-        this.countryMostVisited = React.createRef();
         this.thingsYouDislike = React.createRef();
         this.textInput = React.createRef();
 
+        this.handleHobbyChange = this.handleHobbyChange.bind(this);
+        this.handlePriorityChange = this.handlePriorityChange.bind(this);
+        this.handleTravelChange = this.handleTravelChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this)
+        this.onHandleCurrentUser = this.onHandleCurrentUser.bind(this)
+        this.onHandleCurrentTravel = this.onHandleCurrentTravel.bind(this)
       }
     handleSubmit(event) {
         this.setState({ 
-          firstValue: this.firstName.current.value, 
-          secondValue: this.lastName.current.value,
-          thridValue: this.gender.current.value,
-          fourthValue: this.age.current.value,
-          fifthValue: this.thingsYouLike.current.value,
-          sixthValue: this.email.current.value,
-          seventhValue: this.login.current.value,
-          eightValue: this.country.current.value,
-          ninthValue: this.countryMostVisited.current.value,
-          tenthValue: this.thingsYouDislike.current.value,
+          value1: this.firstName.current.value, 
+          value2: this.lastName.current.value,
+          value3: this.age.current.value,
+          value4: this.email.current.value,
+          value5: this.login.current.value,
+
         } )
         event.preventDefault();
       }
+
  
       componentDidMount(){
-        this.setState({ 
-          eightValue: this.country.current.value,
-          
-          })
-      }
-      componentDidMount(){
-        fetch("http://localhost:3000/api/places")
-        .then(res => res.json())
-        .then(result => {
-            this.setState({
-                places: result
-            })
-        })
-        .catch(e => console.log(e))
 
         fetch("http://localhost:3000/api/users")
         .then(res => res.json())
@@ -71,143 +65,178 @@ class App extends Component{
             })
         })
         .catch(e => console.log(e))
-      }
-/*    
-      componentDidUpdate(eightValue, country) {
-        if(this.country.current.value !== this.state.eightValue ){
-          eightValue = this.state.eightValue
-          country = this.country.current.value
-          console.log(this.country.current.value)
-          console.log(this.state.eightValue)
-          console.log(eightValue)
-          console.log(country)
-        }
-      }
-      */ 
-render(){
-    let visitedPlaces = '';
-    let matchingPerson= '';
-    let dislike = '';
-    let chosenCountry = '';
 
-    dislike = this.state.tenthValue
-    chosenCountry = this.state.eightValue
-
-      this.state.places.map((place,i) =>
-      {
-        place.visitingPlacesList
-        if (chosenCountry === place.vistingPlaceCountry)
-        {
-          {
-            visitedPlaces = 
-            <select> 
-              <option>{place.visitingPlacesList}</option> 
-            </select>
-          }
-        }
-      }
-      )
-
-
-       this.state.users.map(function(item)
-       {
-          if(item.country === chosenCountry)
-          {
-            if( dislike !== item.thingsYouLike)
-            {
-            matchingPerson = <li>Vardas: {item.firstName} <br></br> pavardė: {item.lastName}<br></br>
-            Lytis: {item.gender} <br></br> Amzius: {item.age}<br></br>
-            Pomegiai: {item.thingsYouLike} <br></br> Nenorimi dalykai: {item.thingsYouDislike}<br></br>
-            Pastas: {item.email} <br></br> Lankoma salis: {item.country}, {item.countryMostVisited}<br></br>
-            </li>    
-            }
-          }
+        
+        fetch("http://localhost:3000/api/travels")
+        .then(res => res.json())
+        .then(result => {
+            this.setState({
+                travels: result
+            })
         })
+        .catch(e => console.log(e))
 
-       
-    return (
-        <div>
-        <form onSubmit={this.handleSubmit} >
-                   
-        <div>
-        
-        <label>
-          First name:
-          <input type="text" ref={this.firstName}  />
-        </label>
-        </div>
-       <div>
-        <label>
-          Last name:
-          <input type="text" ref={this.lastName}  />
-        </label>
-        </div>
-        <div>
-        <label>
-          Gender:
-          <select ref={this.gender}>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-          </select>
-        </label>
-        </div>
-        <div>
-        <label>
-          Age:
-          <input type="text" ref={this.age}  />
-        </label>
-        </div>
-        <div>
-        <label>
-          Things you like to do:
-          <input type="text" ref={this.thingsYouLike}  />
-        </label>
-        </div>
-        <div>
-        <label>
-          Things you dislike:
-          <input type="text" ref={this.thingsYouDislike}  />
-        </label>
-        </div>
-       <div>
-        <label>
-          Email:
-          <input type="email" ref={this.email}  />
-        </label>
-        </div>
-        <div>
-          Join or create a team
-          <select ref={this.login}>
-      <option value="join">Join</option>
-      <option value="createTeam">Create team</option>
-          </select>
-          </div>
-        <div>
-          Choose the country
-          <select ref={this.country}>
-      <option value="Lithuania">Lithuania</option>
-      <option value="France">France</option>
-      <option value="Germany">Germany</option>
-      <option value="Spain">Spain</option>
-          </select>
-          </div>
-        
-      <div ref={this.countryMostVisited}>
-      <div>
-        Choose most visited places in the country
-      {visitedPlaces}
-      </div>
-      </div>
-     <input type="submit" value="Submit" />
-      </form >
+        fetch("http://localhost:3000/api/hobbys")
+        .then(res => res.json())
+        .then(result => {
+            this.setState({
+                hobbys: result
+            })
+        })
+        .catch(e => console.log(e))
+
+        fetch("http://localhost:3000/api/prioritys")
+        .then(res => res.json())
+        .then(result => {
+            this.setState({
+              prioritys: result
+            })
+        })
+        .catch(e => console.log(e))
+
+        fetch("http://localhost:3000/api/genders")
+        .then(res => res.json())
+        .then(result => {
+            this.setState({
+              genders: result
+            })
+        })
+        .catch(e => console.log(e))
+      }
+      
+      onHandleCurrentUser(userId){
+        const data = {userId: userId}
+        fetch("http://localhost:3000/api/user",{
+          method: 'POST',
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(result => {
+          this.setState({
+            currentUser:result
+          })
+        })
+        .catch(e => console.log(e))
+      }
+      onHandleCurrentTravel(travelId){
+        const data = {travelId: travelId}
+        fetch("http://localhost:3000/api/travel",{
+          method: 'POST',
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(result => {
+          this.setState({
+            currentTravel:result
+          })
+        })
+        .catch(e => console.log(e)) 
+      }
     
-        <div >
-        <div>
-        {matchingPerson}
-        </div>
-        
-        </div>
-        </div>
+    handleHobbyChange(e) {
+      const item = e.target.hobby;
+      const isChecked = e.target.checked;
+      this.setState(prevState => ({ checkedHobbyItems: prevState.checkedHobbyItems.set(item, isChecked) }));
+    }
+    handlePriorityChange(e) {
+      const item = e.target.priority;
+      const isChecked = e.target.checked;
+      this.setState(prevState => ({ checkedPriorityItems: prevState.checkedPriorityItems.set(item, isChecked) }));
+    }
+    handleTravelChange(e) {
+      const item = e.target.title;
+      const isChecked = e.target.checked;
+      this.setState(prevState => ({ checkedTravelItems: prevState.checkedTravelItems.set(item, isChecked) }));
+    }
+render(){
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit} >               
+          <div className="firstName">
+            <label>
+              First name:
+              <input type="text" ref={this.firstName}  />
+            </label>
+          </div>
+          <div className="lastName">
+            <label>
+            Last name:
+            <input type="text" ref={this.lastName}  />
+            </label>
+          </div>
+          <div className="gender">
+            Gender:
+          <select id="genders">{
+            this.state.genders.map(item => (
+            <option key={item.id}>
+            {item.gender}
+            </option>
+            ))
+            }
+            </select>
+          </div>
+          <div className="age">
+            <label>
+            Age:
+            <input type="text" ref={this.age}  />
+            </label>
+          </div>
+          <div className="thingsLike">
+            Hobbies : 
+            {this.state.hobbys.map(item => (
+            <label key={item.key}>
+            {item.hobby}
+            <input type="checkbox" name={item.hobby} checked={this.state.checkedHobbyItems.get(item.hobby)} onChange={this.handleHobbyChange}  />
+            </label>
+            ))
+            }
+          </div>
+          <div className="thingsDislike">
+            Priority : 
+            {this.state.prioritys.map(item => (
+            <label key={item.key}>
+            {item.priority}
+            <input type="checkbox" name={item.priority} checked={this.state.checkedPriorityItems.get(item.priority)} onChange={this.handlePriorityChange}  />
+            </label>
+            ))
+            }
+          </div>
+          <div className="email">
+            <label>
+            Email:
+            <input type="email" ref={this.email}  />
+            </label>
+          </div>
+          <div className="joinCreate">
+            Join or create a team
+            <select ref={this.login}>
+            <option value="join">Join</option>
+            <option value="createTeam">Create team</option>
+            </select>
+          </div>
+          <div className="chooseCountry">
+            Choose the country
+            <select id="countries">{
+            this.state.travels.map(item => (
+            <option key={item.id}>
+            {item.country}
+            </option>
+            ))
+            }
+            </select>
+          </div>
+          <div className="visitingCountry" ref={this.countryMostVisited}>
+            Choose most visited places in the country
+          </div>
+            <input type="submit" value="Submit" />
+            <div className="matchingPerson">
+             
+            </div>
+          </form >
+          </div>
+          
     )
 }
 }
