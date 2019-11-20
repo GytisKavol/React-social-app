@@ -10,10 +10,12 @@ module.exports = (app) => {
     })
     app.get('/api/users', userApiController.getUsers)
     app.get('/api/travels', userApiController.getTravels)
+    app.get('/api/places/:countryId', userApiController.getPlaces)
     app.get('/api/hobbys', hobbyController.getHobbys)
     app.get('/api/prioritys', hobbyController.getPrioritys)
     app.get('/api/genders', hobbyController.getGenders)
-    app.post('/api/user', userApiController.findUser)
+    app.post('/api/user',userApiController.findUser)
     app.post('/api/travel', userApiController.findTravel)
+    app.post('/api/place', userApiController.findPlace)
     return app
 }
