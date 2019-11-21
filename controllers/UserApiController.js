@@ -5,7 +5,7 @@ class UserApiController {
         this.getPlaces = this.getPlaces.bind(this)
         this.findUser = this.findUser.bind(this)
         this.findTravel = this.findTravel.bind(this)
-        this.findPlace = this.findPlace.bind(this)
+ 
 
     }
     
@@ -218,7 +218,8 @@ class UserApiController {
     }  
      
     getPlaces(req, res, next){ 
-        const countryId = req.params.countryId
+        const countryId = req.body.countryId
+        console.log(countryId)
         let places = []
         this._travelsList().forEach(items=>{
             if(countryId==items.id){
@@ -260,99 +261,89 @@ _usersList(){
 }
 
 getUsers(req, res, next){ 
-    // JSON.parse()
-    //requre.body
-    const myHobbyChoices = ["NailArt", "Programming", "Sport"]
-    const myPlacesChoices = ["Hanojus", "Kasablanka"]
-    const myPriorityChoices = ["WithoutCats"]
-
-    const similarUsers = []
-    myHobbyChoices.forEach(myChoice => {
-        this._usersList().forEach(item => {
-            let userFound = false
-            let usersHobbies = item.hobby
-
-
-            let even = (element) => element == myChoice;
-            let isUserHasHobby = usersHobbies.some(even)
-
-            if (isUserHasHobby) {
-
-                let isUserWantToPlaces = false
-                let usersPlaces = item.choices
-                userFound = false
-               
-                myPlacesChoices.forEach(place => {
-                    userFound = false
-                    let even = (element) => element == place;
-                    isUserWantToPlaces = usersPlaces.some(even)
-                   
-
-                    if (isUserWantToPlaces) {
-
-                        let isUserHasPrioritys = false
-                        let usersPrioritys = item.priority
-
-                        myPriorityChoices.forEach(priority => {
-                            userFound = false
-                            let even = (element) => element == priority;
-                            isUserHasPrioritys = usersPrioritys.some(even)
-                            if (isUserHasPrioritys) {
-
-                                similarUsers.forEach(usr => {
-                      
-                                    if (usr.id == item.id) userFound = true
-                                })
-                            
-                                if (!userFound)
-                                    similarUsers.push(item)
-
-                            }
-
-                        })
-
+    const  myHobbyList = req.body.myHobbyList ? JSON.parse(req.body.myHobbyList) : []
+    const  myPlaceList = req.body.myPlaceList ? JSON.parse(req.body.myPlaceList) : []
+    const  myPriorityList = req.body.myPriorityList ? JSON.parse(req.body.myPriorityList) : []
+     //const myHobbyList = ["NailArt", "Programming", "Sport"]
+     //const myPlaceList = ["Hanojus", "Kasablanka"]
+     //const myPriorityList = ["WithoutCats"]
+ 
+     const similarUsers = []
+     myHobbyList.forEach(myChoice => {
+         this._usersList().forEach(item => {
+             let userFound = false
+             let usersHobbies = item.hobby
+ 
+ 
+             let even = (element) => element == myChoice;
+             let isUserHasHobby = usersHobbies.some(even)
+ 
+             if (isUserHasHobby) {
+ 
+                 let isUserWantToPlaces = false
+                 let usersPlaces = item.choices
+                 userFound = false
+                
+                 myPlaceList.forEach(place => {
+                     userFound = false
+                     let even = (element) => element == place;
+                     isUserWantToPlaces = usersPlaces.some(even)
+                    
+ 
+                     if (isUserWantToPlaces) {
+ 
+                         let isUserHasPrioritys = false
+                         let usersPrioritys = item.priority
+ 
+                         myPriorityList.forEach(priority => {
+                             userFound = false
+                             let even = (element) => element == priority;
+                             isUserHasPrioritys = usersPrioritys.some(even)
+                             if (isUserHasPrioritys) {
+ 
+                                 similarUsers.forEach(usr => {
                        
-      
-                  } 
-
-                })
-            }
-
-        })
-        
-})
-   
-    return res.json(similarUsers)
-}   
-
-findUser(req, res, next) {
-    const  userId = parseInt(req.body.userId) || 0
-    const  users = this._usersList()
-    const  amount = users.length
-    let result = {}
-    for (let i = 0; i < amount; i++) {
-        let user = users[i]
-        if (user.id == userId){
-            result = user
-            break
-        }
-    }
-    return res.json(result)
-}
-findPlace(req, res, next) {
-    const  countryId = parseInt(req.body.countryId) || 0
-    const  places = this._travelsList()
-    const  amount = places.length
-    let result = {}
-    for (let i = 0; i < amount; i++) {
-        let place = places[i]
-        if (place.id == countryId){
-            result = place
-            break
-        }
-    }
-    return res.json(result)
-}
+                                     if (usr.id == item.id) userFound = true
+                                 })
+                             
+                                 if (!userFound)
+                                     similarUsers.push(item)
+ 
+                             }
+ 
+                         })
+ 
+                        
+       
+                   } 
+ 
+                 })
+             }
+ 
+         })
+         
+ })
+    
+     return res.json(similarUsers)
+ }   
+ 
+ findUser(req, res, next) {
+     const  userId = parseInt(req.body.userId) || 0
+     const  users = this._usersList()
+     const  amount = users.length
+     let result = {}
+     for (let i = 0; i < amount; i++) {
+         let user = users[i]
+         if (user.id == userId){
+             result = user
+             break
+         }
+     }
+     return res.json(result)
+ }
+ 
 }
 
 module.exports = UserApiController
+
+

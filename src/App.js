@@ -12,13 +12,13 @@ class App extends Component{
                       title:'',
                       users: [],
                       travels:[],
-                      checkedHobbyItems: new Map(),
-                      checkedPriorityItems: new Map(),
-                      checkedVistingItems: new Map(),
+                      myHobbyChoices: new Map(),
+                      myPriorityChoices: new Map(),
+                      myPlacesChoices: new Map(),
                       hobbys:[],
                       prioritys:[],
                       genders:[],
-                      places:[]
+                      places:[],
                     };
 
         this.hobbys = React.createRef();
@@ -47,6 +47,7 @@ class App extends Component{
         this.textInput = React.createRef();
         this.onHandleCurrentUser=this.onHandleCurrentUser.bind(this)
         this.onHandlePlaces=this.onHandlePlaces.bind(this)
+        this.handeleSend=this.handeleSend.bind(this)
     }
     onHandleCurrentUser(userId){
 
@@ -65,8 +66,9 @@ class App extends Component{
         .catch(e=>console.log(e));
     }
     onHandlePlaces(countryId){
-      const data={countryId:countryId}
-      fetch("http://localhost:3000/api/places/"+countryId,{
+      const data={countryId}
+      fetch("http://localhost:3000/api/places",{
+     
           method: 'POST',
           headers: {"Content-Type":"application/json"},
           body: JSON.stringify(data)
@@ -87,9 +89,53 @@ class App extends Component{
           value4: this.email.current.value,
           value5: this.login.current.value,
           value6: this.genders.current.value,
+
         } )
         event.preventDefault();
+        let myPlaceList = []
+        let myHobbyList = []
+        let myPriorityList = []
+        this.state.myPlacesChoices.forEach((item,name) =>{
+          myPlaceList.push(name)
+        }
+        )
+        this.state.myHobbyChoices.forEach((item,name) =>{
+          myHobbyList.push(name)
+        }
+        )
+        this.state.myPriorityChoices.forEach((item,name) =>{
+          myPriorityList.push(name)
+        }
+        )
+        console.log(myPlaceList)
+        console.log(myHobbyList)
+        console.log(myPriorityList)
+    
+
+  }
+  handeleSend(){
+    const data={
+     myPlaceList,
+     myHobbyList,
+     myPriorityList
+      
     }
+    fetch("http://localhost:3000/api/places",{
+   
+        method: 'POST',
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(result => {
+        this.setState({
+            places: result
+        })
+    })
+    .catch(e=>console.log(e));
+
+
+  }
     componentDidMount(){
 
         fetch("http://localhost:3000/api/users")
@@ -141,18 +187,19 @@ class App extends Component{
     handleHobbyChange(e) {
       const item = e.target.name;
       const isChecked = e.target.checked;
-      this.setState(prevState => ({ checkedHobbyItems: prevState.checkedHobbyItems.set(item, isChecked) }));
+      this.setState(prevState => ({ myHobbyChoices: prevState.myHobbyChoices.set(item, isChecked) }));
     }
     handleVisitingChange(e) {
       const item = e.target.name;
       const isChecked = e.target.checked;
-      this.setState(prevState => ({ checkedVistingItems: prevState.checkedVistingItems.set(item, isChecked) }));
+      this.setState(prevState => ({ myPlacesChoices: prevState.myPlacesChoices.set(item, isChecked) }));
     }
     handlePriorityChange(e) {
       const item = e.target.name;
       const isChecked = e.target.checked;
-      this.setState(prevState => ({ checkedPriorityItems: prevState.checkedPriorityItems.set(item, isChecked) }));
+      this.setState(prevState => ({ myPriorityChoices: prevState.myPriorityChoices.set(item, isChecked) }));
     }
+
     handleChange(event) {
       this.setState({
         title: event.target.value
@@ -162,9 +209,11 @@ class App extends Component{
 render(){
   const{currentUser}=this.state
   const{places}=this.state
+  
     return (
       <div>
-        <form onSubmit={this.handleSubmit} onClick={e=>this.onHandleCurrentUser()}>               
+        <form onSubmit={this.handleSubmit} 
+              onClick={e=>this.onHandleCurrentUser()}>               
           <div className="firstName">
             <label>
             First name:
@@ -207,7 +256,7 @@ render(){
             {item.hobby}
             
 
-            <input type="checkbox" name={item.hobby} checked={this.state.checkedHobbyItems.get(item.hobby)} onChange={this.handleHobbyChange}  />
+            <input type="checkbox" name={item.hobby} checked={this.state.myHobbyChoices.get(item.hobby)} onChange={this.handleHobbyChange}  />
             </label>
             ))
           
@@ -215,30 +264,27 @@ render(){
           </div>
           <div className="thingsDislike">
             Priority : 
-
             {this.state.prioritys.map(item => (
-             
             <label key={item.key} >
             {item.priority}
-            
-            <input type="checkbox" name={item.priority} checked={this.state.checkedPriorityItems.get(item.priority)} onChange={this.handlePriorityChange}  />
-            
+            <input type="checkbox" name={item.priority} checked={this.state.myPriorityChoices.get(item.priority)} onChange={this.handlePriorityChange}  />
             </label>
-          
             ))
-            
             }
-
           </div>
           <div className="chooseCountry">
             Choose the country
-            <select id="countries" name="title" value={this.state.title} onChange={this.handleChange.bind(this)} onChange={e=>this.onHandlePlaces()}>{
+            <select id="countries" name="title" 
+              value={this.state.title} 
+              onChange={this.handleChange.bind(this)}
+              onChange={e=>this.onHandlePlaces(e.target.value)}>
+               {
             this.state.travels.map(item => (
-            <option key={item.id}>
+            <option key={item.id} value={item.id}>
             {item.country}
             </option>
             ))
-            }
+              }
             </select>
           </div>
           <div className="visitingCountry">
@@ -247,8 +293,11 @@ render(){
             {this.state.places.map(item => 
             (
                 <label key={item.key}>
-                {item.id}
-                <input type="checkbox" name={item.places} checked={this.state.checkedVistingItems.get(item.places)} onChange={this.handleVisitingChange}  />
+                {item.title}
+                <input type="checkbox" 
+                name={item.title} 
+                checked={this.state.myPlacesChoices.get(item.title)} 
+                onChange={this.handleVisitingChange}  />
            
             </label>
             ))
