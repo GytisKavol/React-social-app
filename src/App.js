@@ -45,26 +45,9 @@ class App extends Component{
         this.handleChange = this.handleChange.bind(this);
 
         this.textInput = React.createRef();
-        this.onHandleCurrentUser=this.onHandleCurrentUser.bind(this)
         this.onHandlePlaces=this.onHandlePlaces.bind(this)
-        this.handeleSend=this.handeleSend.bind(this)
     }
-    onHandleCurrentUser(userId){
-
-        const data={userId:userId}
-        fetch("http://localhost:3000/api/user",{
-            method: 'POST',
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify(data)
-        })
-        .then(res=>res.json())
-        .then(result=>{
-            this.setState({
-                currentUser:result
-            })
-        })
-        .catch(e=>console.log(e));
-    }
+   
     onHandlePlaces(countryId){
       const data={countryId}
       fetch("http://localhost:3000/api/places",{
@@ -82,19 +65,10 @@ class App extends Component{
       .catch(e=>console.log(e));
   }
     handleSubmit(event) {
-        this.setState({ 
-          value1: this.firstName.current.value, 
-          value2: this.lastName.current.value,
-          value3: this.age.current.value,
-          value4: this.email.current.value,
-          value5: this.login.current.value,
-          value6: this.genders.current.value,
-
-        } )
-        event.preventDefault();
-        let myPlaceList = []
-        let myHobbyList = []
-        let myPriorityList = []
+    event.preventDefault();
+        const myPlaceList = []
+        const myHobbyList = []
+        const myPriorityList = []
         this.state.myPlacesChoices.forEach((item,name) =>{
           myPlaceList.push(name)
         }
@@ -104,24 +78,28 @@ class App extends Component{
         }
         )
         this.state.myPriorityChoices.forEach((item,name) =>{
+         
           myPriorityList.push(name)
         }
-        )
-        console.log(myPlaceList)
-        console.log(myHobbyList)
-        console.log(myPriorityList)
-    
-
-  }
-  handeleSend(){
-    const data={
-     myPlaceList,
-     myHobbyList,
-     myPriorityList
-      
-    }
-    fetch("http://localhost:3000/api/places",{
+      )
    
+      
+      this.setState({ 
+        value1: this.firstName.current.value, 
+        value2: this.lastName.current.value,
+        value3: this.age.current.value,
+        value4: this.email.current.value,
+        value5: this.login.current.value,
+        value6: this.genders.current.value,
+
+        myPlaceList: myPlaceList,
+        myHobbyList: myHobbyList,
+        myPriorityList: myPriorityList
+      } )
+
+      const data={myPlaceList,myHobbyList, myPriorityList}
+
+      fetch("http://localhost:3000/api/users",{  
         method: 'POST',
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify(data)
@@ -129,23 +107,15 @@ class App extends Component{
     .then(res => res.json())
     .then(result => {
         this.setState({
-            places: result
+            users: result
         })
     })
     .catch(e=>console.log(e));
-
-
-  }
+    }
+  
     componentDidMount(){
 
-        fetch("http://localhost:3000/api/users")
-        .then(res => res.json())
-        .then(result => {
-            this.setState({
-                users: result
-            })
-        })
-        .catch(e => console.log(e)),
+      
 
         
         fetch("http://localhost:3000/api/travels")
@@ -199,21 +169,16 @@ class App extends Component{
       const isChecked = e.target.checked;
       this.setState(prevState => ({ myPriorityChoices: prevState.myPriorityChoices.set(item, isChecked) }));
     }
-
     handleChange(event) {
       this.setState({
         title: event.target.value
       })
     }
-
 render(){
-  const{currentUser}=this.state
-  const{places}=this.state
-  
+  console.log(this.state.users)
     return (
       <div>
-        <form onSubmit={this.handleSubmit} 
-              onClick={e=>this.onHandleCurrentUser()}>               
+        <form onSubmit={this.handleSubmit}>               
           <div className="firstName">
             <label>
             First name:
@@ -276,8 +241,9 @@ render(){
             Choose the country
             <select id="countries" name="title" 
               value={this.state.title} 
-              onChange={this.handleChange.bind(this)}
+             // onChange={this.handleChange.bind(this)}
               onChange={e=>this.onHandlePlaces(e.target.value)}>
+                <option></option>
                {
             this.state.travels.map(item => (
             <option key={item.id} value={item.id}>
@@ -314,18 +280,7 @@ render(){
           </div>
           <input type="submit" value="Submit" />
           <div className="matchingPerson">
-
-                <div>
-                    {
-                        currentUser && <div>{currentUser.id}</div>
-                    }
-                </div>
-                <div>
-                    {
-                        places && <div>{places.id}</div>
-                    }
-                </div>
-            </div>
+          </div>
           </form >
           </div>
     )

@@ -8,7 +8,7 @@ module.exports = (app) => {
     app.get('/', (req, res) => {
         res.render('home')
     })
-    app.get('/api/users', userApiController.getUsers)
+    app.post('/api/users', userApiController.getUsers)
     app.get('/api/travels', userApiController.getTravels)
     app.post('/api/places', userApiController.getPlaces)
     app.get('/api/hobbys', hobbyController.getHobbys)

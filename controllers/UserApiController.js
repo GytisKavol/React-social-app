@@ -219,7 +219,6 @@ class UserApiController {
      
     getPlaces(req, res, next){ 
         const countryId = req.body.countryId
-        console.log(countryId)
         let places = []
         this._travelsList().forEach(items=>{
             if(countryId==items.id){
@@ -261,10 +260,12 @@ _usersList(){
 }
 
 getUsers(req, res, next){ 
-    const  myHobbyList = req.body.myHobbyList ? JSON.parse(req.body.myHobbyList) : []
-    const  myPlaceList = req.body.myPlaceList ? JSON.parse(req.body.myPlaceList) : []
-    const  myPriorityList = req.body.myPriorityList ? JSON.parse(req.body.myPriorityList) : []
-     //const myHobbyList = ["NailArt", "Programming", "Sport"]
+    const  myHobbyList = req.body.myHobbyList// ? JSON.parse(req.body.myHobbyList) : []
+    const  myPlaceList = req.body.myPlaceList //? JSON.parse(req.body.myPlaceList) : []
+    const  myPriorityList = req.body.myPriorityList //? JSON.parse(req.body.myPriorityList) : []
+   
+    
+    //const myHobbyList = ["NailArt", "Programming", "Sport"]
      //const myPlaceList = ["Hanojus", "Kasablanka"]
      //const myPriorityList = ["WithoutCats"]
  
@@ -323,6 +324,10 @@ getUsers(req, res, next){
          })
          
  })
+ console.log(myHobbyList)
+ console.log(myPlaceList)
+ console.log(myPriorityList)
+ console.log(similarUsers)
     
      return res.json(similarUsers)
  }   
