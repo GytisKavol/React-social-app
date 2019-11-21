@@ -280,6 +280,16 @@ render(){
           </div>
           <input type="submit" value="Submit" />
           <div className="matchingPerson">
+          <select id="matchingPerson">{
+            this.state.users.map(item => (
+            <option key={item.id} >
+            {item.FirstName}
+            {item.LastName}
+            </option>
+            ))
+            }
+            </select>
+          
           </div>
           </form >
           </div>

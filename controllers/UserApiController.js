@@ -253,9 +253,11 @@ _usersList(){
         {id: 3, FirstName: 'Martyna', LastName: 'Jaugaitė', age: '24', gender: 'women', hobby: [''], email: 'martyna@panko.lt', priority: [''], choices: ['Alhambra']},
         {id: 4, FirstName: 'Matas', LastName: 'Vitkauskas', age: '21', gender: 'men', hobby: ['NailArt', 'ToCookFood', 'Climbing'], email: 'matas@panko.lt', priority: ['WithoutPets'], choices: ['San Džiminjano']},
         {id: 5, FirstName: 'Andrius', LastName: 'Maličevas', age: '21', gender: 'men', hobby: ['Climbing'], email: 'audrius@panko.lt', priority: ['OnlyMen','WithoutDogs'], choices: ['Eifelio bokštas']},
-        {id: 6, FirstName: 'Paulius', LastName: 'Šeštokas', age: '21', gender: 'men', hobby: ['Cars', 'Sport', 'Drive'], email: 'paulius@panko.lt', priority: ['OnlyWomen'], choices: ['Korfu sala']},
-        {id: 7, FirstName: 'Audrius', LastName: 'Šimoliūnas', age: '24', gender: 'men', hobby: ['Programming', 'Sport'], email: 'audrius@panko.lt', priority: ['NotOlderThan24Years'], choices: ['Tadž Mahalas']},
-        {id: 8, FirstName: 'Aivaras', LastName: 'Klydžia', age: '21', gender: 'men', hobby: [''], email: 'aivaras@panko.lt', priority: [''], choices: ['Termessos']}
+        {id: 6, FirstName: 'Paulius', LastName: 'Šeštokas', age: '21', gender: 'men', hobby: ['Cars', 'Sport', 'Drive'], email: 'paulius@panko.lt', priority: ['NotOlderThan24Years'], choices: ['Korfu sala']},
+        {id: 7, FirstName: 'Audrius', LastName: 'Šimoliūnas', age: '24', gender: 'men', hobby: ['Programming', 'Sport'], email: 'audrius@panko.lt', priority: ['NotOlderThan24Years'], choices: ['Korfu sala']},
+        {id: 8, FirstName: 'Gytis', LastName: 'Kavoliunas', age: '21', gender: 'men', hobby: ['Programming', 'Sport'], email: 'paulius@panko.lt', priority: ['NotOlderThan24Years'], choices: ['Korfu sala']},
+        {id: 9, FirstName: 'Vardenis', LastName: 'Pavardenis', age: '24', gender: 'men', hobby: ['Programming', 'Sport'], email: 'audrius@panko.lt', priority: ['NotOlderThan24Years'], choices: ['Korfu sala']},
+        {id: 10, FirstName: 'Aivaras', LastName: 'Klydžia', age: '21', gender: 'men', hobby: [''], email: 'aivaras@panko.lt', priority: [''], choices: ['Termessos']}
 ]
 }
 
