@@ -43,8 +43,6 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
-    this.textInput = React.createRef();
     this.onHandlePlaces = this.onHandlePlaces.bind(this);
   }
 
