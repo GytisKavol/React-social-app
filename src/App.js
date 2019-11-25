@@ -43,6 +43,8 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleChange = this.handleChange.bind(this);
+
+    this.textInput = React.createRef();
     this.onHandlePlaces = this.onHandlePlaces.bind(this);
   }
 
@@ -240,7 +242,6 @@ class App extends Component {
               // onChange={this.handleChange.bind(this)}
               onChange={e => this.onHandlePlaces(e.target.value)}
             >
-              <option></option>
               {this.state.travels.map(item => (
                 <option key={item.id} value={item.id}>
                   {item.country}

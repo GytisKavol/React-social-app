@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 app.set("views", __dirname + "/views");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.engine("hbs", exphbs({ defaultLayout: "main", extname: ".hbs" }));
 
