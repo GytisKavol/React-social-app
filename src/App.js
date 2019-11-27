@@ -251,9 +251,6 @@ class App extends Component {
                 istoriją menančiais statiniais ir unikaliu kultūriniu paveldu.
                 Austrija maloniai nustebins kiekvieną atvykstantį.
                 <br />
-                <a href="#" className="btn btn-primary stretched-link">
-                  Skaityti daugiau
-                </a>
                 <div className="media mt-3">
                   <a className="mr-3" href="#">
                     <img
@@ -271,9 +268,6 @@ class App extends Component {
                     neišsemiamas, o lyriški kraštovaizdžiai užburia ir suvirpina
                     iki pat sielos gelmių.
                     <br />
-                    <a href="#" className="btn btn-primary stretched-link">
-                      Skaityti daugiau
-                    </a>
                   </div>
                 </div>
               </div>
@@ -293,9 +287,6 @@ class App extends Component {
                 praktiškai ištisus metus. Kelionės į Ispaniją – tikra atgaiva
                 kūnui ir sielai.
                 <br />
-                <a href="#" className="btn btn-primary stretched-link">
-                  Skaityti daugiau
-                </a>
                 <div className="media mt-3">
                   <a className="mr-3" href="#">
                     <img
@@ -313,9 +304,6 @@ class App extends Component {
                     tolimųjų rytų kultūra bei nepažinti, tačiau malonūs ir šilti
                     Japonijos žmonės nepalieka abejingų.
                     <br />
-                    <a href="#" className="btn btn-primary stretched-link">
-                      Skaityti daugiau
-                    </a>
                   </div>
                 </div>
               </div>
