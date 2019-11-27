@@ -149,192 +149,6 @@ class App extends Component {
   render() {
     return (
       <div className="wholeForm">
-        <div className="form-component">
-          <form onSubmit={this.handleSubmit}>
-            <div className="form-group row">
-              <label htmlFor="firstName" className="col-sm-2 col-form-label">
-                Vardas
-              </label>
-              <div className="col">
-                <input
-                  type="text"
-                  id="firstName"
-                  className="form-control"
-                  placeholder="Vardas"
-                />
-              </div>
-              <label htmlFor="lastName" className="col-sm-2 col-form-label">
-                Pavardė
-              </label>
-              <div className="col">
-                <input
-                  type="text"
-                  id="lastName"
-                  className="form-control"
-                  placeholder="Pavardė"
-                />
-              </div>
-            </div>
-
-            <div className="form-group row">
-              <label
-                htmlFor="inputPassword3"
-                className="col-sm-2 col-form-label"
-              >
-                Lytis
-              </label>
-              <div className="col-sm-10">
-                <select className="custom-select">
-                  {this.state.genders.map(item => (
-                    <option value={item.gender}>{item.gender}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className="form-group row">
-              <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">
-                Amžius
-              </label>
-              <div className="col-sm-10">
-                <input
-                  type="number"
-                  className="form-control"
-                  id="inputEmail3"
-                  placeholder="Amžius"
-                />
-              </div>
-            </div>
-            <div className="form-group row">
-              <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">
-                El.paštas
-              </label>
-              <div className="col-sm-10">
-                <input
-                  type="email"
-                  className="form-control"
-                  id="inputEmail3"
-                  placeholder="El.paštas"
-                />
-              </div>
-            </div>
-            <div className="form-group row">
-              <legend className="col-form-label col-sm-2 pt-0">Pomėgiai</legend>
-              <div className="col-sm-10">
-                <div className="form-check">
-                  {this.state.hobbys.map(item => (
-                    <label key={item.key}>
-                      {item.hobby}
-                      <input
-                        type="checkbox"
-                        name={item.hobby}
-                        checked={this.state.myHobbyChoices.get(item.hobby)}
-                        onChange={this.handleHobbyChange}
-                      />
-                    </label>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="form-group row">
-              <div className="col-sm-2">Pirmenybė</div>
-              <div className="col-sm-10">
-                <div className="form-check">
-                  {this.state.prioritys.map(item => (
-                    <label key={item.key}>
-                      {item.priority}
-                      <input
-                        type="checkbox"
-                        name={item.priority}
-                        checked={this.state.myPriorityChoices.get(
-                          item.priority
-                        )}
-                        onChange={this.handlePriorityChange}
-                      />
-                    </label>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="form-group row">
-              <label
-                htmlFor="inputPassword3"
-                className="col-sm-2 col-form-label"
-              >
-                Pasirinkite šalį
-              </label>
-              <div className="col-sm-10">
-                <select
-                  className="custom-select"
-                  id="countries"
-                  name="title"
-                  value={this.state.title}
-                  // onChange={this.handleChange.bind(this)}
-                  onChange={e => this.onHandlePlaces(e.target.value)}
-                >
-                  {this.state.travels.map(item => (
-                    <option key={item.id} value={item.id}>
-                      {item.country}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="form-group row">
-              <div className="col-sm-2">
-                Pasirinkite daugiausiai šalies lankomas vietas
-              </div>
-              <div className="col-sm-10">
-                <div className="form-check">
-                  {this.state.places.map(item => (
-                    <label key={item.key}>
-                      {item.title}
-                      <input
-                        type="checkbox"
-                        name={item.title}
-                        checked={this.state.myPlacesChoices.get(item.title)}
-                        onChange={this.handleVisitingChange}
-                      />
-                    </label>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="form-group row">
-              <label
-                htmlFor="inputPassword3"
-                className="col-sm-2 col-form-label"
-              >
-                Prisijunkite arba kurkite komandą
-              </label>
-              <div className="col-sm-10">
-                <select className="custom-select" ref={this.login}>
-                  <option value="join">Join</option>
-                  <option value="createTeam">Create team</option>
-                </select>
-              </div>
-            </div>
-            <div className="form-group row">
-              <div className="col-sm-10">
-                <input
-                  type="submit"
-                  value="Registruotis"
-                  className="btn btn-primary"
-                />
-              </div>
-            </div>
-
-            <div className="matchingPerson">
-              <select id="matchingPerson">
-                {this.state.users.map(item => (
-                  <option key={item.id}>
-                    {item.FirstName} {item.LastName}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </form>
-        </div>
         <div id="navigacija">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <button
@@ -535,6 +349,192 @@ class App extends Component {
               <p className="card-text">Parašykite mums</p>
             </div>
           </div>
+        </div>
+        <div className="form-component">
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group row">
+              <label htmlFor="firstName" className="col-sm-2 col-form-label">
+                Vardas
+              </label>
+              <div className="col">
+                <input
+                  type="text"
+                  id="firstName"
+                  className="form-control"
+                  placeholder="Vardas"
+                />
+              </div>
+              <label htmlFor="lastName" className="col-sm-2 col-form-label">
+                Pavardė
+              </label>
+              <div className="col">
+                <input
+                  type="text"
+                  id="lastName"
+                  className="form-control"
+                  placeholder="Pavardė"
+                />
+              </div>
+            </div>
+
+            <div className="form-group row">
+              <label
+                htmlFor="inputPassword3"
+                className="col-sm-2 col-form-label"
+              >
+                Lytis
+              </label>
+              <div className="col-sm-10">
+                <select className="custom-select">
+                  {this.state.genders.map(item => (
+                    <option value={item.gender}>{item.gender}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="form-group row">
+              <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">
+                Amžius
+              </label>
+              <div className="col-sm-10">
+                <input
+                  type="number"
+                  className="form-control"
+                  id="inputEmail3"
+                  placeholder="Amžius"
+                />
+              </div>
+            </div>
+            <div className="form-group row">
+              <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">
+                El.paštas
+              </label>
+              <div className="col-sm-10">
+                <input
+                  type="email"
+                  className="form-control"
+                  id="inputEmail3"
+                  placeholder="El.paštas"
+                />
+              </div>
+            </div>
+            <div className="form-group row">
+              <legend className="col-form-label col-sm-2 pt-0">Pomėgiai</legend>
+              <div className="col-sm-10">
+                <div className="form-check">
+                  {this.state.hobbys.map(item => (
+                    <label key={item.key}>
+                      {item.hobby}
+                      <input
+                        type="checkbox"
+                        name={item.hobby}
+                        checked={this.state.myHobbyChoices.get(item.hobby)}
+                        onChange={this.handleHobbyChange}
+                      />
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="form-group row">
+              <div className="col-sm-2">Pirmenybė</div>
+              <div className="col-sm-10">
+                <div className="form-check">
+                  {this.state.prioritys.map(item => (
+                    <label key={item.key}>
+                      {item.priority}
+                      <input
+                        type="checkbox"
+                        name={item.priority}
+                        checked={this.state.myPriorityChoices.get(
+                          item.priority
+                        )}
+                        onChange={this.handlePriorityChange}
+                      />
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="form-group row">
+              <label
+                htmlFor="inputPassword3"
+                className="col-sm-2 col-form-label"
+              >
+                Pasirinkite šalį
+              </label>
+              <div className="col-sm-10">
+                <select
+                  className="custom-select"
+                  id="countries"
+                  name="title"
+                  value={this.state.title}
+                  // onChange={this.handleChange.bind(this)}
+                  onChange={e => this.onHandlePlaces(e.target.value)}
+                >
+                  {this.state.travels.map(item => (
+                    <option key={item.id} value={item.id}>
+                      {item.country}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="form-group row">
+              <div className="col-sm-2">
+                Pasirinkite daugiausiai šalies lankomas vietas
+              </div>
+              <div className="col-sm-10">
+                <div className="form-check">
+                  {this.state.places.map(item => (
+                    <label key={item.key}>
+                      {item.title}
+                      <input
+                        type="checkbox"
+                        name={item.title}
+                        checked={this.state.myPlacesChoices.get(item.title)}
+                        onChange={this.handleVisitingChange}
+                      />
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="form-group row">
+              <label
+                htmlFor="inputPassword3"
+                className="col-sm-2 col-form-label"
+              >
+                Prisijunkite arba kurkite komandą
+              </label>
+              <div className="col-sm-10">
+                <select className="custom-select" ref={this.login}>
+                  <option value="join">Join</option>
+                  <option value="createTeam">Create team</option>
+                </select>
+              </div>
+            </div>
+            <div className="form-group row">
+              <div className="col-sm-10">
+                <input
+                  type="submit"
+                  value="Registruotis"
+                  className="btn btn-primary"
+                />
+              </div>
+            </div>
+
+            <div className="matchingPerson">
+              <select id="matchingPerson">
+                {this.state.users.map(item => (
+                  <option key={item.id}>
+                    {item.FirstName} {item.LastName}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </form>
         </div>
       </div>
     );
